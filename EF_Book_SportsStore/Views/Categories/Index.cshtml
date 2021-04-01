@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Category>
+
+<h3 class="p-2 bg-primary text-white text-center">Категории</h3>
+
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-1 font-weight-bold">Id</div>
+        <div class="col font-weight-bold">Name</div>
+        <div class="col font-weight-bold">Description</div>
+        <div class="col-3"></div>
+    </div>
+    @if (ViewBag.EditId == null)
+	{
+		 <form asp-action="AddCategory" method="post">
+             @await Html.PartialAsync("CategoryEditor", new Category())
+         </form>
+	}
+    @foreach (var category in Model)
+    {
+        if (category.CategoryId == ViewBag.EditId)
+        {
+            <form asp-action="UpdateCategory" method="post">
+                <input type="hidden" name="categoryId" value="@category.CategoryId" />
+                @await Html.PartialAsync("CategoryEditor", category) 
+            </form>
+        }
+        else
+        {
+            <div class="row p-2">
+                <div class="col-1">@category.CategoryId</div>
+                <div class="col">@category.Name</div>
+                <div class="col">@category.Description</div>
+                <div class="col-3">
+                    <form asp-action="DeleteCategory" method="post">
+                        <input type="hidden" name="categoryId" value="@category.CategoryId" />
+                        <a asp-action="EditCategory" asp-route-categoryId="@category.CategoryId" class="btn btn-outline-primary">Изменить</a>
+                        <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+</div>

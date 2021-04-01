@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Product>
+
+<h3 class="p-2 bg-primary text-white text-center">Products</h3>
+
+<div class="container-fluid mt-3">
+
+    <div class="row">
+        <div class="col-1 font-weight-bold">Id</div>
+        <div class="col font-weight-bold">Name</div>
+        <div class="col font-weight-bold">Category</div>
+        <div class="col font-weight-bold">Purchase Price</div>
+        <div class="col font-weight-bold">Retail Price</div>
+        <div class="col"></div>
+    </div>
+    @foreach (var product in Model)
+    {
+        <div class="row p-2">
+            <div class="col-1">@product.ProductId</div>
+            <div class="col">@product.Name</div>
+            <div class="col">@product.Category.Name</div>
+            <div class="col text-right">@product.PurchasePrice</div>
+            <div class="col text-right">@product.RetailPrice</div>
+            <div class="col">
+                <form asp-action="Delete" method="post">
+                    <a asp-action="UpdateProduct" asp-route-productId="@product.ProductId" class="btn btn-outline-primary">Изменить</a>
+                    <input type="hidden" name="ProductId" value="@product.ProductId" />
+                    <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    }
+    <div class="text-center p-2">
+        <a asp-action="UpdateProduct" asp-route-productId="@(default(Guid))" class="btn btn-primary">Добавить</a>
+    </div>
+
+</div>
