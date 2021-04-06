@@ -1,6 +1,11 @@
 ﻿using EF_Book_SportsStore.Models;
+using EF_Book_SportsStore.Models.Pages;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
+
+// Add-Migration ИМЯ
+// Update-Database
 
 namespace EF_Book_SportsStore.Controllers
 {
@@ -14,7 +19,7 @@ namespace EF_Book_SportsStore.Controllers
             this.categoryRepository = categoryRepository;
         }
 
-        public IActionResult Index() => View(repository.Products);
+        public IActionResult Index(QueryOptions options) => View(repository.GetProducts(options));
 
         public IActionResult UpdateProduct(Guid productId)
         {
@@ -35,37 +40,6 @@ namespace EF_Book_SportsStore.Controllers
             }
             return RedirectToAction("Index");
         }
-
-        //[HttpPost]
-        //public IActionResult AddProduct(Product product)
-        //{
-        //    repository.AddProduct(product);
-        //    return RedirectToAction("Index");
-        //}
-
-        //[HttpGet]
-        //public IActionResult UpdateProduct(Guid productId) => View(repository.GetProduct(productId));
-
-        //[HttpPost]
-        //public IActionResult UpdateProduct(Product product)
-        //{
-        //    repository.UpdateProduct(product);
-        //    return RedirectToAction("Index");
-        //}
-
-        //[HttpGet]
-        //public IActionResult UpdateAll()
-        //{
-        //    ViewBag.UpdateAll = true;
-        //    return View("Index", repository.Products);
-        //}
-
-        //[HttpPost]
-        //public IActionResult UpdateAll(Product[] products)
-        //{
-        //    repository.UpdateAll(products);
-        //    return RedirectToAction("Index");
-        //}
 
         [HttpPost]
         public IActionResult Delete(Product product)

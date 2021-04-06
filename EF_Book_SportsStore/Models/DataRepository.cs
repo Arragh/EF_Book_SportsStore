@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EF_Book_SportsStore.Models.Pages;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace EF_Book_SportsStore.Models
         }
 
         public Product GetProduct(Guid productId) => context.Products.Include(p => p.Category).FirstOrDefault(p => p.ProductId == productId);
+
+        public PagedList<Product> GetProducts(QueryOptions options) => new PagedList<Product>(context.Products.Include(p => p.Category), options);
 
         public void UpdateAll(Product[] products)
         {

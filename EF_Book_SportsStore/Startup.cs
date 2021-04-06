@@ -19,6 +19,7 @@ namespace EF_Book_SportsStore
             services.AddTransient<IRepository, DataRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IOrdersRepository, OrdersRepository>();
+            services.AddTransient<IWebServiceRepository, WebServiceRepository>();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EFBookDB")));
         }
 

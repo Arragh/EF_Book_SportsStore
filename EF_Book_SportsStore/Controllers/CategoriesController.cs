@@ -1,4 +1,5 @@
 ﻿using EF_Book_SportsStore.Models;
+using EF_Book_SportsStore.Models.Pages;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace EF_Book_SportsStore.Controllers
         private ICategoryRepository repository;
         public CategoriesController(ICategoryRepository repository) => this.repository = repository;
 
-        public IActionResult Index() => View(repository.Categories);
+        public IActionResult Index(QueryOptions options) => View(repository.GetCategories(options));
 
         [HttpPost]
         public IActionResult AddCategory(Category category)
